@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastgele Sayı Tahmin Oyunu</title>
+</head>
+<body>
+  <p style="display: inline-block;"  id="TahminSayaci">1. tahmini girin:</p>
+  <input type="number" id="girilenSayi" min="1" max="100">
+  <br>
+  <button onclick="kontrolEt()">Tahmin Yap</button>
+  <hr>
+  <label id="bilgiAlani"></label>
+
+  <script>
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+    let tahminSayisi = 1;
+
+    function kontrolEt() {
+      const girilenSayi = parseInt(document.getElementById("girilenSayi").value);
+
+      if (girilenSayi === randomNumber) {
+        document.getElementById("bilgiAlani").textContent = `Sayı ${tahminSayisi} denemede bulundu.`;
+        document.getElementById("girilenSayi").style.display = "none"; 
+        document.querySelector("button").disabled = true; 
+      } else if (girilenSayi < randomNumber) {
+        document.getElementById("bilgiAlani").textContent = "Daha büyük bir sayı girin.";
+        tahminSayisi++;
+      } else {
+        document.getElementById("bilgiAlani").textContent = "Daha küçük bir sayı girin.";
+        tahminSayisi++;
+      }
+
+      if (tahminSayisi > 7) {
+        document.getElementById("bilgiAlani").textContent = "Deneme hakkınız kalmadı. Kaybettiniz.";
+        document.getElementById("girilenSayi").disabled = true; 
+        document.querySelector("button").disabled = true; 
+        tahminSayisi--;
+      }
+
+      updateTahminSayaci();
+    }
+
+    function updateTahminSayaci() {
+      document.getElementById("TahminSayaci").textContent = `${tahminSayisi}. tahmini girin:`;
+    }
+  </script>
+</body>
+</html>
